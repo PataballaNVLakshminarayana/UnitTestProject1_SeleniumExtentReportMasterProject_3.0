@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,29 +16,34 @@ namespace UnitTestProject1_SeleniumExtentReportMasterProject_3._0
     {
         public static IWebDriver _driver;
         public static string ExecutionBrowser { get; set; }
+        //public static HttpClient _httpClient;
         public static ExtentReports _EReports;
         public static ExtentTest _Test;
         public static ExtentTest _Step;
-
-        //public static void createReport(string resultpath)
+      
+        //public static void CloseSeleniumInit()
         //{
-        //    _EReports = new ExtentReports();
-        //   var directpath = @resultpath;
-        //    var sparkReporter = new ExtentSparkReporter(directpath);
-        //    _EReports.AttachReporter(sparkReporter);
+        //        _driver.Dispose();
+        //        _driver.Close();
+        //        _driver.Quit();
+            
+        //    //_driver.Close();
+        //    //_driver.Quit();
+        //    //_driver.Dispose();
         //}
-        public static void CloseSeleniumInit()
-        {
-            _driver.Close();
-            _driver.Quit();
-            _driver.Dispose();
-        }
         public static void CreateEReport(string Filename)
         {
             _EReports = new ExtentReports();
             var directpath = @Filename;
             var sparkReporter = new ExtentSparkReporter(directpath);
             _EReports.AttachReporter(sparkReporter);
+        }
+        public static void TakeScreenshot(Status _status, string stepdetails)
+        {
+            string path = @"D:\ExtentReports\ " + DateTime.Now.ToString("yyyymmdd_hhmmss") + ".png";
+            Screenshot screenshot = ((ITakesScreenshot)_driver).GetScreenshot();
+            File.WriteAllBytes(path, screenshot.AsByteArray);
+            _Step.Log(_status, stepdetails, MediaEntityBuilder.CreateScreenCaptureFromPath(path).Build());
         }
         public static IWebDriver SeleniumInit()
         {

@@ -46,11 +46,11 @@ namespace UnitTestProject1_SeleniumExtentReportMasterProject_3._0
         public void HomeLogin_Page(string _url, string username,string password)
         {
              //_Step = _Test.CreateNode("HomeLogin_Page");
-            _driver.Navigate().GoToUrl(_url);//
+            _driver.Navigate().GoToUrl(_url);
             //CaptureScreenshot();
             _driver.Manage().Window.Maximize();
-            _driver.FindElement(_Username).SendKeys(username);//
-            _driver.FindElement(_Password).SendKeys(password);//
+            _driver.FindElement(_Username).SendKeys(username);
+            _driver.FindElement(_Password).SendKeys(password);
             _driver.FindElement(_LoginBtn).Click();
             Thread.Sleep(10000);
             _driver.Quit();

@@ -2,6 +2,8 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
+using System.Configuration;
+using System.Net.Http;
 using System.Threading;
 
 namespace UnitTestProject1_SeleniumExtentReportMasterProject_3._0
@@ -9,6 +11,10 @@ namespace UnitTestProject1_SeleniumExtentReportMasterProject_3._0
     [TestClass]
     public class UnitTest1_ExtentReportsSeries : WebDriverCallingPage
     {
+        HomeLoginPage Homepage = new HomeLoginPage();
+        WebDriverCallingPage Webcalling = new WebDriverCallingPage();
+        SearchHotelPage Searchpage = new SearchHotelPage();
+        //private static HttpClient _httpClient;
         public TestContext instance;
         public TestContext TestContext
         {
@@ -26,31 +32,36 @@ namespace UnitTestProject1_SeleniumExtentReportMasterProject_3._0
         {
             _EReports.Flush();
         }
-        HomeLoginPage Homepage = new HomeLoginPage();
-        WebDriverCallingPage Webcalling = new WebDriverCallingPage();
-        //By _Username = By.Id("username");
-        //By _Password = By.Id("password");
-        //By _LoginBtn = By.Id("login");
         [TestInitialize()]
         public void TestInit()
         {
             //ExecutionBrowser = ConfigurationManager.AppSettings["ExecutionBrowser"].ToString();
-            SeleniumInit();
             _Test = _EReports.CreateTest(TestContext.TestName);
         }
-        [TestCleanup()]
-        public  void TestCleanup()
-        {
-            CloseSeleniumInit();
-        }
+        //[TestCleanup()]
+        //public  void TestCleanup()
+        //{
+        //    CloseSeleniumInit();
+        //}
+
         [TestMethod]
-        public void ExtentReport_Series()
+        public void HomeLoginPage_Series()
         {
-            //WebDriverCallingPage.SeleniumInit();
+            WebDriverCallingPage.SeleniumInit();
             Homepage.HomeLogin_Page("https://adactinhotelapp.com/", "nagalakshmin", "l@kshmin");
-            //Homepage.HomeLogin_Page("https://adactinhotelapp.com/", "nagalakshmin", "l@kshmin");
+            WebDriverCallingPage.TakeScreenshot(AventStack.ExtentReports.Status.Pass,"the test case is passed");
             Thread.Sleep(10000);
-            //_driver.Quit();
+            _driver.Quit();
         }
+        //[TestMethod]
+        //public void SearchHotelPage_Series()
+        //{
+        //   WebDriverCallingPage.SeleniumInit();
+        //    Homepage.HomeLogin_Page("https://adactinhotelapp.com/", "nagalakshmin", "l@kshmin");
+        //    Searchpage.Search_Page();
+        //    Thread.Sleep(10000);
+        //    _driver.Quit();
+        //}
+         
     }
 }
